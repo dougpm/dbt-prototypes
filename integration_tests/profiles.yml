@@ -1,4 +1,4 @@
-pattern:
+playground:
   target: qa
   outputs:
     qa:

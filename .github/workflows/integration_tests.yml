@@ -21,6 +21,9 @@ jobs:
   integration_tests:
     name: integration_tess
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./integration_tests
 
     steps:
       - name: Check out
@@ -32,7 +35,7 @@ jobs:
 
       - name: Install dbt
         run: |
-          pip install dbt-snowflake=1.0.1
+          pip install dbt-snowflake==1.1.0
           dbt deps --target qa
       
       - name: Run dbt seeds
