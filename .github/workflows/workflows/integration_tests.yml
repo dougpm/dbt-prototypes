@@ -1,0 +1,44 @@
+name: Runs dbt integration tests
+ 
+on:
+  pull_request:
+    branches: [ master ]
+
+env:
+  DBT_PROFILES_DIR: ./
+  SOURCE_DATABASE: INTEGRATION_TESTS
+  SOURCE_SCHEMA: CORE
+  SNOWFLAKE_ACCOUNT: ${{secrets.SNOWFLAKE_ACCOUNT}}
+  SNOWFLAKE_USER: ${{secrets.SNOWFLAKE_USER}}
+  SNOWFLAKE_PASSWORD: ${{secrets.SNOWFLAKE_PASSWORD}}
+  SNOWFLAKE_ROLE: ${{secrets.SNOWFLAKE_ROLE}}
+  SNOWFLAKE_WAREHOUSE: ${{secrets.SNOWFLAKE_WAREHOUSE}}
+  SNOWFLAKE_DATABASE: ${{secrets.SNOWFLAKE_DATABASE}}
+  SNOWFLAKE_SCHEMA: ${{secrets.SNOWFLAKE_SCHEMA}}
+
+jobs:
+  integration_tests:
+    name: integration_tess
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out
+        uses: actions/checkout@master
+
+      - uses: actions/setup-python@v1
+        with:
+          python-version: "3.10.x"
+
+      - name: Install dbt
+        run: |
+          pip install dbt-snowflake=1.0.1
+          dbt deps --target qa
+      
+      - name: Run dbt seeds
+        run: dbt seed --target qa
+
+      - name: Run audit models
+        run: dbt run --target qa --select +audit
+
+      - name: Run dbt tests
+        run: dbt test --target qa

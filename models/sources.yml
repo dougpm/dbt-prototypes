@@ -2,8 +2,9 @@ version: 2
 
 sources:
     - name: general
-      database: "{{ var('source_database') }}"
-      schema: "{{ var('source_schema') }}"
+      database: "{{ env_var('SOURCE_DATABASE') }}"
+      schema: RAW_MODEL_1
       description: Sources
       tables:
-        - name: source_data1
+        - name: raw_model_1
+        - name: raw_model_2
