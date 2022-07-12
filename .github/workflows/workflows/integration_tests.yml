@@ -2,7 +2,7 @@ name: Runs dbt integration tests
  
 on:
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 
 env:
   DBT_PROFILES_DIR: ./
