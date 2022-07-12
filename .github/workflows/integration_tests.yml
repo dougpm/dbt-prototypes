@@ -39,7 +39,9 @@ jobs:
           dbt deps --target qa
       
       - name: Run dbt seeds
-        run: dbt seed --target qa
+        run: |
+          pwd
+          dbt seed --target qa
 
       - name: Run audit models
         run: dbt run --target qa --select +audit
