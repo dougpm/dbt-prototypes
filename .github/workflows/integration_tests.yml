@@ -21,6 +21,9 @@ jobs:
   integration_tests:
     name: integration_tess
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./integration_tests
 
     steps:
       - name: Check out
@@ -29,9 +32,6 @@ jobs:
       - uses: actions/setup-python@v1
         with:
           python-version: "3.10.x"
-        
-      - name: Change directory to integration_tests
-        run: cd integration_tests
 
       - name: Install dbt
         run: |
@@ -39,9 +39,7 @@ jobs:
           dbt deps --target qa
       
       - name: Run dbt seeds
-        run: |
-          pwd
-          dbt seed --target qa
+        run: dbt seed --target qa
 
       - name: Run audit models
         run: dbt run --target qa --select +audit
