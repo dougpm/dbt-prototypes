@@ -4,7 +4,7 @@ sources:
     - name: general
       database: "{{ env_var('SOURCE_DATABASE') }}"
       schema: RAW_MODEL_1
-      description: Sources
+      description: Sources 1
       tables:
         - name: raw_model_1
         - name: raw_model_2
