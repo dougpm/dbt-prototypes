@@ -32,7 +32,7 @@ jobs:
 
       - name: Install dbt
         run: |
-          pip install dbt-snowflake=1.0.1
+          pip install dbt-snowflake==1.0.1
           dbt deps --target qa
       
       - name: Run dbt seeds
