@@ -41,5 +41,6 @@ jobs:
       - name: Run audit models
         run: dbt run --target qa --select +audit
 
+
       - name: Run dbt tests
         run: dbt test --target qa
